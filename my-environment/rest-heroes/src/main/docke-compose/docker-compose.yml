@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+
+  heroes-db:
+    image: postgres:15
+    container_name: heroes-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: hero
+      POSTGRES_PASSWORD: hero
+      POSTGRES_DB: heroes_database
+    volumes:
+      - ./db-init/initialize-tables.sql:/docker-entrypoint-initdb.d/1-init-tables.sql
+      - "./volume/data:/var/lib/postgresql/data"

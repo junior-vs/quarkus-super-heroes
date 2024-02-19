@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  villains-db:
+    image: postgres:15
+    container_name: villains-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: superbad
+      POSTGRES_PASSWORD: superbad
+      POSTGRES_DB: villains_database
+    volumes:
+      - ./db-init/initialize-tables.sql:/docker-entrypoint-initdb.d/1-init-tables.sql
