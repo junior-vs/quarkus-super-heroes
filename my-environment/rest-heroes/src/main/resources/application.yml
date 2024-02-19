@@ -1,0 +1,35 @@
+quarkus:
+  application:
+    name: rest-heroes
+  banner:
+    path: banner.txt
+  log:
+    level: INFO
+    category:
+      "io.quarkus.sample.superheroes":
+        level: DEBUG
+    console:
+      format: "%d{HH:mm:ss} %-5p traceId=%X{traceId}, parentId=%X{parentId}, spanId=%X{spanId}, sampled=%X{sampled} [%c{2.}] (%t) %s%e%n"
+      level: INFO
+      darken: 1
+  hibernate-orm:
+    database:
+      generation: validate
+  datasource:
+    username: hero
+    password: hero
+    jdbc.url: jdbc:postgresql://localhost:5432/heroes_database
+
+  jackson:
+    serialization-inclusion: non-empty
+
+  smallrye-openapi:
+    info-title: Hero API
+    info-description: This API allows CRUD operations on a hero
+    info-version: 1.0
+    info-contact-name: Quarkus
+    info-contact-url: https://github.com/quarkusio
+  swagger-ui:
+    always-include: true
+
+

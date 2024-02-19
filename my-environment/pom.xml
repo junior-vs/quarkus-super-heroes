@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>io.quarkus.sample</groupId>
+  <artifactId>super-heroes</artifactId>
+  <version>1.0</version>
+  <packaging>pom</packaging>
+  <name>Quarkus Sample :: Super-Heroes</name>
+  <organization>
+    <name>Quarkus</name>
+    <url>https://quarkus.io</url>
+  </organization>
+  <modules>
+    <module>rest-villains</module>
+    <module>rest-heroes</module>
+  </modules>
+  <scm>
+    <connection>scm:git:git://github.com/quarkusio/quarkus-super-heroes.git</connection>
+    <developerConnection>scm:git:git://github.com/quarkusio/quarkus-super-heroes.git</developerConnection>
+    <url>https://github.com/quarkusio/quarkus-super-heroes</url>
+  </scm>
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/quarkusio/quarkus-super-heroes/issues</url>
+  </issueManagement>
+  <ciManagement>
+    <system>GitHub</system>
+    <url>https://github.com/quarkusio/quarkus-super-heroes/actions</url>
+  </ciManagement>
+</project>
