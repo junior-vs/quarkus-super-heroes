@@ -12,5 +12,5 @@ services:
       POSTGRES_PASSWORD: hero
       POSTGRES_DB: heroes_database
     volumes:
-      - ./db-init/initialize-tables.sql:/docker-entrypoint-initdb.d/1-init-tables.sql
+      - ./db-init/initialize-table.sql:/docker-entrypoint-initdb.d/initialize-table.sql
       - "./volume/data:/var/lib/postgresql/data"

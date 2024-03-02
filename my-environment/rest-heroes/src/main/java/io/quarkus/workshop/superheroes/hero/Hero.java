@@ -1,25 +1,23 @@
 package io.quarkus.workshop.superheroes.hero;
 
-import io.quarkus.hibernate.reactive.panache.PanacheEntity;
-
-import io.smallrye.mutiny.Uni;
-
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.util.Random;
-
+@Entity
+@Table(name = "hero")
 public class Hero{
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "hero_seq_id")
-  @SequenceGenerator(name = "hero_seq_id", sequenceName = "hero_seq_id", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "hero_seq")
+  @SequenceGenerator(name = "hero_seq", sequenceName = "hero_seq", allocationSize = 1)
   @Column(name = "id")
   private Long id;
 
@@ -31,7 +29,7 @@ public class Hero{
 
   @NotNull
   @Min(1)
-  private Integer Level;
+  private Integer level;
 
   private String picture;
 
@@ -47,7 +45,7 @@ public class Hero{
     final StringBuilder sb = new StringBuilder("Hero{");
     sb.append("name='").append(name).append('\'');
     sb.append(", otherName='").append(otherName).append('\'');
-    sb.append(", Level=").append(Level);
+    sb.append(", level=").append(level);
     sb.append(", picture='").append(picture).append('\'');
     sb.append(", powers='").append(powers).append('\'');
     sb.append('}');
@@ -67,7 +65,7 @@ public class Hero{
   }
 
   public Integer getLevel() {
-    return Level;
+    return level;
   }
 
   public String getPicture() {

@@ -24,4 +24,13 @@ final class Examples {
 		""";
 
   static final String VALID_EXAMPLE_HERO_LIST = "[" + VALID_EXAMPLE_HERO + "]";
+
+
+  static final String INVALID_EXAMPLE_HERO = """
+    {		
+    	"name": " ",
+    	"level": -10			
+    }
+    """;
+
 }

@@ -4,21 +4,26 @@ quarkus:
   banner:
     path: banner.txt
   log:
-    level: INFO
-    category:
-      "io.quarkus.sample.superheroes":
-        level: DEBUG
     console:
-      format: "%d{HH:mm:ss} %-5p traceId=%X{traceId}, parentId=%X{parentId}, spanId=%X{spanId}, sampled=%X{sampled} [%c{2.}] (%t) %s%e%n"
+      format: "%d{HH:mm:ss} %-5p (%t) %s%e%n"
       level: INFO
-      darken: 1
   hibernate-orm:
     database:
       generation: validate
   datasource:
-    username: hero
-    password: hero
-    jdbc.url: jdbc:postgresql://localhost:5432/heroes_database
+    reactive:
+      url: postgresql://hero:hero@localhost:5432/heroes_database
+  http:
+    port: 8083
+"%dev,test":
+  quarkus:
+    hibernate-orm:
+      hibernate-sql-load-script: import.sql
+
+  rest-client:
+    heroes:
+      url: http://localhost:3000
+
 
   jackson:
     serialization-inclusion: non-empty
