@@ -14,6 +14,7 @@
   <modules>
     <module>rest-villains</module>
     <module>rest-heroes</module>
+    <module>rest-fights</module>
   </modules>
   <scm>
     <connection>scm:git:git://github.com/quarkusio/quarkus-super-heroes.git</connection>

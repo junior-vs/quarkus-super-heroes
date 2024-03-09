@@ -7,27 +7,16 @@ quarkus:
     console:
       format: "%d{HH:mm:ss} %-5p (%t) %s%e%n"
       level: INFO
-  hibernate-orm:
-    database:
-      generation: validate
-  datasource:
-    reactive:
-      url: postgresql://hero:hero@localhost:5432/heroes_database
   http:
     port: 8083
-"%dev,test":
-  quarkus:
-    hibernate-orm:
-      hibernate-sql-load-script: import.sql
-
+    cors:
+      ~: true
+      origins: "*"
   rest-client:
     heroes:
       url: http://localhost:3000
-
-
   jackson:
     serialization-inclusion: non-empty
-
   smallrye-openapi:
     info-title: Hero API
     info-description: This API allows CRUD operations on a hero
@@ -36,5 +25,25 @@ quarkus:
     info-contact-url: https://github.com/quarkusio
   swagger-ui:
     always-include: true
+
+"%dev,test":
+  quarkus:
+    hibernate-orm:
+      hibernate-sql-load-script: import.sql
+      database:
+        generation: drop-and-create
+    log:
+      console:
+        format: "%d{HH:mm:ss} %-5p [%c{2.}] (%t) %s%e%n"
+        level: DEBUG
+
+"%prod":
+  quarkus:
+    datasource:
+      reactive:
+        url: postgresql://hero:hero@localhost:5432/heroes_database
+    hibernate-orm:
+      database:
+        generation: validate
 
 
