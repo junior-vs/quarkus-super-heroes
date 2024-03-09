@@ -1,6 +1,19 @@
--- A 100 record random sample from https://github.com/quarkusio/quarkus-super-heroes/blob/characterdata/all-villains.sql
-ALTER SEQUENCE villain_seq RESTART WITH 50;
+DROP TABLE IF EXISTS Villain;
+DROP SEQUENCE IF EXISTS villain_seq;
 
+CREATE SEQUENCE villain_seq START 1 INCREMENT 50;
+
+CREATE TABLE Villain (
+  id int8 NOT NULL,
+  level int4 NOT NULL,
+  name VARCHAR(50) NOT NULL,
+  otherName VARCHAR(255),
+  picture VARCHAR(255),
+  powers TEXT,
+  PRIMARY KEY (id)
+);
+
+-- A 100 record random sample from https://github.com/quarkusio/quarkus-super-heroes/blob/characterdata/all-villains.sql
 INSERT INTO villain(id, name, otherName, picture, powers, level)
 VALUES (nextval('villain_seq'), 'Harvester', '', 'https://raw.githubusercontent.com/quarkusio/quarkus-super-heroes/characterdata/images/harvester-7132702029670535082.jpg', 'Durability, Intelligence, Stamina, Super Speed, Super Strength, Cold Resistance, Endurance, Energy Blasts, Energy Resistance, Jump, Radiation Immunity, Reflexes, Toxin and Disease Resistance, Weapon-based Powers, Aura, Dexterity, Stealth', 116);
 INSERT INTO villain(id, name, otherName, picture, powers, level)

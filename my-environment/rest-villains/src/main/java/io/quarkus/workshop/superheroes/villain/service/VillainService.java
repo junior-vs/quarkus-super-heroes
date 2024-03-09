@@ -1,7 +1,7 @@
 package io.quarkus.workshop.superheroes.villain.service;
 
 import io.quarkus.logging.Log;
-import io.quarkus.workshop.superheroes.villain.Villain;
+import io.quarkus.workshop.superheroes.villain.model.Villain;
 
 import io.smallrye.common.annotation.NonBlocking;
 

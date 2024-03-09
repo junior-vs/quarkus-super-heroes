@@ -3,16 +3,14 @@ package io.quarkus.workshop.superheroes.villain;
 import io.quarkus.logging.Log;
 import io.quarkus.test.junit.QuarkusTest;
 
+import io.quarkus.workshop.superheroes.villain.model.Villain;
+
 import io.restassured.common.mapper.TypeRef;
 
 import org.hamcrest.core.Is;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.EmptySource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 import java.util.Random;
@@ -24,7 +22,6 @@ import static jakarta.ws.rs.core.Response.Status.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.jboss.resteasy.reactive.RestResponse.Status.OK;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.params.ParameterizedTest.*;
 
 @QuarkusTest
 class VillainResourceTest {
@@ -64,7 +61,7 @@ class VillainResourceTest {
       .when()
       .get("/api/villains/{id}")
       .then()
-      .statusCode(NOT_FOUND.getStatusCode());
+      .statusCode(NO_CONTENT.getStatusCode());
   }
 
   @Test

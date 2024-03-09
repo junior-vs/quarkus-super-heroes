@@ -128,31 +128,29 @@ public class HeroResource {
   @APIResponse(responseCode = "400", description = "Invalid hero passed in (or no request body found)")
   @APIResponse(responseCode = "404", description = "No hero found")
   public Uni<RestResponse<Hero>> fullyUpdateHero(@Parameter(name = "id", required = true) @PathParam("id") Long id, @RequestBody(name = "hero", required = true, content = @Content(mediaType = APPLICATION_JSON, schema = @Schema(implementation = Hero.class), examples = @ExampleObject(name = "valid_hero", value = Examples.VALID_EXAMPLE_HERO))) @Valid @NotNull Hero hero) {
-
     if (hero.getId() == null) {
       hero.setId(id);
     }
 
-    return this.service.replaceHero(hero).onItem().ifNotNull().transform(h -> {
-      this.logger.debug("Hero replaced with new values %s", h);
-      return RestResponse.ok(h);
-    }).onItem().ifNull().continueWith(() -> {
-      this.logger.debug("No hero found with id %d", hero.getId());
-      return RestResponse.status(Status.NOT_FOUND);
-    });
+    return this.service.replaceHero(id, hero)
+      .onItem().ifNotNull().transform(h -> {
+        this.logger.info("Hero replaced with new values %s", h);
+        return RestResponse.ok(h);
+      })
+      .onItem().ifNull().continueWith(() -> {
+        this.logger.info("No hero found with id %d", hero.getId());
+        return RestResponse.status(Status.NOT_FOUND);
+      });
   }
 
-  @PUT
+  @POST
+  @Path("/list")
   @Consumes(APPLICATION_JSON)
-  @Operation(summary = "Completely replace all heroes with the passed-in heroes")
+  @Operation(summary = "Add list of heroes with the passed-in heroes")
   @APIResponse(responseCode = "201", description = "The URI to retrieve all the created heroes", headers = @Header(name = HttpHeaders.LOCATION, schema = @Schema(implementation = URI.class)))
   @APIResponse(responseCode = "400", description = "Invalid heroes passed in (or no request body found)")
-  public Uni<RestResponse> replaceAllHeroes(@RequestBody(name = "valid_villains", required = true, content = @Content(mediaType = APPLICATION_JSON, schema = @Schema(implementation = Hero.class, type = SchemaType.ARRAY), examples = @ExampleObject(name = "heroes", value = Examples.VALID_EXAMPLE_HERO_LIST))) @NotNull List<Hero> heroes, @Context UriInfo uriInfo) {
-    return this.service.replaceAllHeroes(heroes).map(h -> {
-      var uri = uriInfo.getAbsolutePathBuilder().build();
-      this.logger.debug("New Heroes created with URI %s", uri.toString());
-      return RestResponse.created(uri);
-    });
+  public Uni<RestResponse<Void>> addListHeroes(@RequestBody(name = "valid_villains", required = true, content = @Content(mediaType = APPLICATION_JSON, schema = @Schema(implementation = Hero.class, type = SchemaType.ARRAY), examples = @ExampleObject(name = "heroes", value = Examples.VALID_EXAMPLE_HERO_LIST))) @NotNull List<Hero> heroes, @Context UriInfo uriInfo) {
+    return Uni.createFrom().item(RestResponse.status(Status.NOT_IMPLEMENTED));
   }
 
   @PATCH
@@ -170,17 +168,18 @@ public class HeroResource {
       hero.setId(id);
     }
 
-    return this.service.partialUpdateHero(hero)
+    return this.service.partialUpdateHero(id, hero)
       .onItem().ifNotNull().transform(h -> {
-      this.logger.debug("Hero updated with new values %s", h);
-      return RestResponse.ok(h);
-    }).onItem().ifNull().continueWith(() -> {
-      this.logger.debug("No hero found with id %d", hero.getId());
-      return RestResponse.status(Status.NOT_FOUND);
-    }).onFailure(ConstraintViolationException.class).transform(cve -> new ResteasyReactiveViolationException
-      (((ConstraintViolationException) cve).getConstraintViolations()));
+        this.logger.debug("Hero updated with new values %s", h);
+        return RestResponse.ok(h);
+      })
+      .onItem().ifNull().continueWith(() -> {
+        this.logger.debug("No hero found with id %d", hero.getId());
+        return RestResponse.status(Status.NOT_FOUND);
+      })
+      .onFailure(ConstraintViolationException.class)
+      .transform(cve -> new ResteasyReactiveViolationException(((ConstraintViolationException) cve).getConstraintViolations()));
   }
-
   @DELETE
   @Operation(summary = "Delete all heroes")
   @APIResponse(

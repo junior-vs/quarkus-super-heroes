@@ -3,7 +3,7 @@ package io.quarkus.workshop.superheroes.villain.service;
 
 import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
 
-import io.quarkus.workshop.superheroes.villain.Villain;
+import io.quarkus.workshop.superheroes.villain.model.Villain;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants.ComponentModel;

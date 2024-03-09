@@ -1,10 +1,13 @@
-package io.quarkus.workshop.superheroes.villain;
+package io.quarkus.workshop.superheroes.villain.rest;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+
+import io.quarkus.workshop.superheroes.villain.model.ExamplesObject;
+import io.quarkus.workshop.superheroes.villain.model.Villain;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;

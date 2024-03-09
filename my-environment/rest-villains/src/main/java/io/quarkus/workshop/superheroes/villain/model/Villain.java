@@ -1,4 +1,4 @@
-package io.quarkus.workshop.superheroes.villain;
+package io.quarkus.workshop.superheroes.villain.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 

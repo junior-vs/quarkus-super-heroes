@@ -1,7 +1,5 @@
 package io.quarkus.workshop.superheroes.hero;
 
-import io.netty.handler.codec.DefaultHeaders.ValueValidator;
-
 import io.quarkus.hibernate.reactive.panache.common.WithTransaction;
 
 import io.smallrye.mutiny.Multi;
@@ -62,21 +60,25 @@ public class HeroService {
   }
 
   @WithTransaction
-  public Uni<Hero> replaceHero(@NotNull @Valid Hero hero) {
+  public Uni<Hero> replaceHero(Long id, @NotNull @Valid Hero hero) {
     logger.debug("Replacing hero: %s", hero);
-    return this.repo.findById(hero.getId()).onItem().ifNotNull().transform(h -> {
+    return this.repo.findById(id).onItem().ifNotNull().transform(h -> {
       this.heroFullUpdateMapper.mapFullUpdate(hero, h);
       return h;
     });
   }
 
   @WithTransaction
-  public Uni<Hero> partialUpdateHero(@NotNull Hero hero) {
+  public Uni<Hero> partialUpdateHero(Long id,  @Valid @NotNull Hero hero) {
     logger.debug("Partially updating hero: %s", hero);
-    return this.repo.findById(hero.getId()).onItem().ifNotNull().transform(h -> {
-      this.heroPartialUpdateMapper.mapPartialUpdate(hero, h);
-      return h;
-    }).onItem().ifNotNull().transform(this::validatePartialUpdate);
+    return this.repo.findById(id)
+     // .onItem().ifNull().failWith(new NoSuchElementException("Hero not found"))
+      .onItem().ifNotNull().transform(h -> {
+        this.heroPartialUpdateMapper.mapPartialUpdate(hero, h);
+        return h;
+      })
+      .onItem().ifNotNull().transform(this::validatePartialUpdate);
+
   }
 
   private Hero validatePartialUpdate(Hero hero) {

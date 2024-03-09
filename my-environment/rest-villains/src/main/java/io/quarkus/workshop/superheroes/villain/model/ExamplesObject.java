@@ -1,11 +1,11 @@
-package io.quarkus.workshop.superheroes.villain;
+package io.quarkus.workshop.superheroes.villain.model;
 
-final class ExamplesObject {
+public final class ExamplesObject {
 
   private ExamplesObject() {
 
   }
-  static final String VALID_EXAMPLE_VILLAIN = """
+  public static final String VALID_EXAMPLE_VILLAIN = """
     {
       "id": 1,
       "name": "Darth Vader",
@@ -15,7 +15,7 @@ final class ExamplesObject {
     }
     """;
 
-  static final String VALID_EXAMPLE_VILLAIN_TO_CREATE = """
+  public static final String VALID_EXAMPLE_VILLAIN_TO_CREATE = """
       {
         "name": "Darth Vader",
         "level": 5,
@@ -24,5 +24,5 @@ final class ExamplesObject {
       }
     """;
 
-  static final String VALID_EXAMPLE_VILLAIN_LIST = "[" + VALID_EXAMPLE_VILLAIN + "]";
+  public static final String VALID_EXAMPLE_VILLAIN_LIST = "[" + VALID_EXAMPLE_VILLAIN + "]";
 }
