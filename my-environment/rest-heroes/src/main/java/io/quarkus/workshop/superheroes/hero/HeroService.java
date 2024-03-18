@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.Validator;
 import jakarta.validation.constraints.NotNull;
 
+import org.jboss.resteasy.reactive.RestResponse;
 import org.slf4j.Logger;
 
 import java.util.List;
@@ -114,6 +115,9 @@ public class HeroService {
       .replaceWithVoid();
   }
 
+  public Uni<Hero> valida() {
 
+    Integer map = repo.findById(2L).map(Hero::getLevel).;
 
+  }
 }

@@ -62,6 +62,13 @@ public class HeroResource {
   }
 
   @GET
+  @Path("/hello2")
+  @Produces(MediaType.TEXT_PLAIN)
+  public Uni<RestResponse<Hero>> hello2() {
+    return service.valida().map(RestResponse::ok);
+  }
+
+  @GET
   @Path("/random")
   @Operation(summary = "Returns a random hero")
   @APIResponse(responseCode = "200", description = "Gets a random hero", content = @Content(mediaType = APPLICATION_JSON, schema = @Schema(implementation = Hero.class, required = true), examples = @ExampleObject(name = "hero", value = Examples.VALID_EXAMPLE_HERO)))
@@ -85,7 +92,10 @@ public class HeroResource {
   @APIResponse(responseCode = "200", description = "Gets all heroes", content = @Content(mediaType = APPLICATION_JSON, schema = @Schema(implementation = Hero.class, type = SchemaType.ARRAY), examples = @ExampleObject(name = "heroes", value = Examples.VALID_EXAMPLE_HERO_LIST)))
   public Uni<List<Hero>> getAllHeroes(@Parameter(name = "name_filter", description = "An optional filter parameter to filter results by name") @QueryParam("name_filter") Optional<String> nameFilter) {
 
-    return nameFilter.map(this.service::findAllHeroesHavingName).orElseGet(this.service::findAllHeroes).invoke(heroes -> this.logger.debug("Total number of heroes: %d", heroes.size()));
+    return nameFilter
+      .map(this.service::findAllHeroesHavingName)
+      .orElseGet(this.service::findAllHeroes)
+      .invoke(heroes -> this.logger.debug(String.format("Total number of heroes: %d", heroes.size())));
   }
 
   /**

@@ -23,22 +23,23 @@ public interface FightConfig {
 	 */
 	Villain villain();
 
-  /**
-   * FightLocation configuration
-   */
-  Location location();
+	/**
+	 * FightLocation configuration
+	 */
+	Location location();
 
-  /**
-   * Fallback narration
-   */
-  @WithDefault("Connection to the narration service could not be established.")
-  String fallbackNarration();
+	/**
+	 * Fallback narration
+	 */
+	@WithDefault("Connection to the narration service could not be established.")
+	String fallbackNarration();
 
 	interface Process {
 		/**
-		 * The number of millis to add as a delay to the fight process. Can be used to introduce deliberate delays.
+		 * The number of millis to add as a delay to the fight process. Can be used to
+		 * introduce deliberate delays.
 		 * <p>
-		 *   Defaults to {@code 0}
+		 * Defaults to {@code 0}
 		 * </p>
 		 */
 		@WithDefault("0")
@@ -49,7 +50,7 @@ public interface FightConfig {
 		/**
 		 * Hero team name
 		 * <p>
-		 *   Defaults to {@code heroes}
+		 * Defaults to {@code heroes}
 		 * </p>
 		 */
 		@WithDefault("heroes")
@@ -63,7 +64,7 @@ public interface FightConfig {
 		/**
 		 * An adjustment upper bound for the hero during a fight.
 		 * <p>
-		 *   Defaults to {@code 20}
+		 * Defaults to {@code 20}
 		 * </p>
 		 */
 		@WithDefault("20")
@@ -96,7 +97,7 @@ public interface FightConfig {
 		/**
 		 * Villain team name
 		 * <p>
-		 *   Defaults to {@code villains}
+		 * Defaults to {@code villains}
 		 * </p>
 		 */
 		@WithDefault("villains")
@@ -115,7 +116,7 @@ public interface FightConfig {
 		/**
 		 * An adjustment upper bound for the villain during a fight.
 		 * <p>
-		 *   Defaults to {@code 20}
+		 * Defaults to {@code 20}
 		 * </p>
 		 */
 		@WithDefault("20")
@@ -144,27 +145,27 @@ public interface FightConfig {
 		}
 	}
 
-  interface Location {
-    /**
-     * FightLocation fallback configuration
-     */
-    LocationFallback fallback();
+	interface Location {
+		/**
+		 * FightLocation fallback configuration
+		 */
+		LocationFallback fallback();
 
-    interface LocationFallback {
-      /**
+		interface LocationFallback {
+			/**
 			 * FightLocation fallback name
 			 */
 			String name();
 
-      /**
-       * FightLocation fallback description
-       */
-      String description();
+			/**
+			 * FightLocation fallback description
+			 */
+			String description();
 
-      /**
-       * FightLocation fallback picture
-       */
-      String picture();
-    }
-  }
+			/**
+			 * FightLocation fallback picture
+			 */
+			String picture();
+		}
+	}
 }

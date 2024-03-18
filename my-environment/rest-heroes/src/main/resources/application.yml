@@ -28,10 +28,13 @@ quarkus:
 
 "%dev,test":
   quarkus:
+    datasource:
+      devservices:
+        init-script-path: data/initialize-table.sql
     hibernate-orm:
-      hibernate-sql-load-script: import.sql
+      #hibernate-sql-load-script: data\initialize-table.sql
       database:
-        generation: drop-and-create
+        generation: validate
     log:
       console:
         format: "%d{HH:mm:ss} %-5p [%c{2.}] (%t) %s%e%n"

@@ -69,6 +69,7 @@ public class Fight extends ReactivePanacheMongoEntity {
 		return Objects.hash(this.id);
 	}
 
+	
 	@Override
 	public String toString() {
 		return "Fight{" +
